@@ -15,10 +15,10 @@ object Router extends App with HTTPHelpers {
 
 
   def apply(env: Map[String, Any]): Response = {
-    env.getPath match {
-      case "/ping" => pongApp(env)
-      case "/time" => timeApp(env)
-      case "/echo" => EchoApp(env)
+    (env.getMethod, env.getPath) match {
+      case (_,      "/ping") => pongApp(env)
+      case (_,      "/time") => timeApp(env)
+      case ("PUT" | "POST", "/echo") => EchoApp(env)
       case _ => helloApp(env)
     }
   }
