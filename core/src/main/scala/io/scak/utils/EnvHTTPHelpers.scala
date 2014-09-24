@@ -3,6 +3,11 @@ package io.scak.utils
 
 trait HTTPHelpers {
   implicit class EnvImprovements(val env: Map[String, Any]) {
+    def getMethod(): String =
+      env.get("http.method").map {
+        _.asInstanceOf[String]
+      }.get
+
     def getPath(): String =
       env.get("http.path").map {
         _.asInstanceOf[String]
